@@ -13,6 +13,7 @@ def recommended_recipe():
     a = []
     for i in range(len(recipes)):
         a.append({'title': recipes[i]['title'], 'image': recipes[i]['image'], 'sourceUrl': recipes[i]['sourceUrl']})
+    print(a[0])
     return a[0]
 
 

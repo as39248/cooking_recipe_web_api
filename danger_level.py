@@ -1,44 +1,35 @@
 import spoonacular as sp
 
-api = sp.API("e86e7107f9724c0797f751fba55182cc")
+api = sp.API("3b96443ec65e48bfa8d08693fcc54e97")
 
-# preferences values
-# knife = Bool value from preferences
-# sharp = Bool value from preferences
-# oven = Bool value from preferences
-# stove = Bool value from preferences
-# raw = Bool value from preferences
-# irritants = Bool value from preferences
-
-
+# fix required
 def lf_dangerous_equip(keyword: str):
     """Search for the dangerous equipments used by the recipe. add 1 to the counter if it is used
     """
+    search_recipes_r = api.search_recipes_complex(keyword, number=10)
+    data_s = search_recipes_r.json()
+
+    search_results = data_s["results"]
+    if not search_results:
+        return "No results found"
+    a = []
+    for i in range(len(search_results)):
+
+        get_equipments = api.visualize_equipment(search_results[i]['id'])
+        data = get_equipments.json()
+
+        for j in range(len(data["equipment"])):
+            if data["equipment"][j]["name"] == ("knife" or "oven" or "stove"):
+                a.append({
+                    'image': data['image'], 'title': data['title'], 'sourceUrl': data['sourceUrl'], 'Dangerous': True
+                })
+            else:
+                a.append({
+                    'image': data['image'], 'title': data['title'], 'sourceUrl': data['sourceUrl'], 'Dangerous': False
+                })
+
+    return a
 
 
-# head: 0
-# sous: 1 to 4
-# apprentice 5 to 6
-def recipe_sorter(dict_of_recipes):
-    head = []
-    sous = []
-    apprentice = []
-    for i in range(len(dict_of_recipes)):
-        key = str("recipe" + str(i))
-        if dict_of_recipes[key] < 1:
-            head.append(key)
-        if 0 < dict_of_recipes[key] < 5:
-            sous.append(key)
-        if dict_of_recipes[key] >= 5:
-            apprentice.append(key)
-    print(head)
-    print(sous)
-    print(apprentice)
-
-
-dicttest = {
-    "recipe0": 0,
-    "recipe1": 0,
-    "recipe2": 0
-}
-recipe_sorter(dicttest)
+if __name__ == '__main__':
+    lf_dangerous_equip("chicken")

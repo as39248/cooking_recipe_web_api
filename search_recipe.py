@@ -5,7 +5,7 @@ api = sp.API("3b96443ec65e48bfa8d08693fcc54e97")
 
 def search_recipes(keyword: str):
     """
-    Search and display 5 recipes. print "No result found" if there is no relevant result for the keyword.
+    Search and display 10 recipes. print "No result found" if there is no relevant result for the keyword.
     :param: keyword
     :return:
     """
@@ -22,6 +22,7 @@ def search_recipes(keyword: str):
         a.append({
             'image': data_g['image'], 'title': data_g['title'], 'sourceUrl': data_g['sourceUrl']
         })
+    print(a)
     return a
 
 
