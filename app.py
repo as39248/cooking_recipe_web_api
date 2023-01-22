@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-import functions
+import search_recipe
 
 
 app = Flask(__name__)
