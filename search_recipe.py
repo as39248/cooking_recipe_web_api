@@ -14,7 +14,7 @@ def search_recipes(keyword: str):
 
     search_results = data_s["results"]
     if not search_results:
-        print("No results found")
+        return "No results found"
     a = []
     for i in range(len(search_results)):
         get_recipes_r = api.get_recipe_information(search_results[i]['id'])

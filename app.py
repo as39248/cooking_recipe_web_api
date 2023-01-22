@@ -14,7 +14,7 @@ def home():
 def add():
     if request.method == 'POST':
         input_value = request.form.get("search")
-        return functions.search_recipes(input_value)
+        return search_recipe.search_recipes(input_value)
 
     return render_template('example.html')
 
